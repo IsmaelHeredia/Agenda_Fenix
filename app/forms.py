@@ -120,7 +120,7 @@ class NotaForm(forms.ModelForm):
 
         widgets = {
             'titulo':forms.TextInput(attrs={'class':'form-control','placeholder':'Ingrese título','autocomplete':'off','autocorrect':'off','spellcheck':'false'}),
-            'contenido':forms.Textarea(attrs={'class':'form-control','rows':15,'placeholder':'Ingrese contenido','autocomplete':'off','autocorrect':'off','spellcheck':'false'}),
+            'contenido':forms.Textarea(attrs={'class':'form-control textarea-css','rows':15,'placeholder':'Ingrese contenido','autocomplete':'off','autocorrect':'off','spellcheck':'false'}),
             'categoria':forms.Select(attrs={'class':'form-control'}),        
         }
 
@@ -150,7 +150,7 @@ class ProyectoForm(forms.ModelForm):
 
         widgets = {
             'titulo':forms.TextInput(attrs={'class':'form-control','placeholder':'Ingrese título','autocomplete':'off','autocorrect':'off','spellcheck':'false'}),
-            'contenido':forms.Textarea(attrs={'class':'form-control','rows':15,'placeholder':'Ingrese contenido','autocomplete':'off','autocorrect':'off','spellcheck':'false'}),
+            'contenido':forms.Textarea(attrs={'class':'form-control textarea-css','rows':15,'placeholder':'Ingrese contenido','autocomplete':'off','autocorrect':'off','spellcheck':'false'}),
             'fecha_inicio':forms.TextInput(attrs={'class':'form-control','placeholder':'Ingrese fecha inicio'}),
             'fecha_terminado':forms.TextInput(attrs={'class':'form-control','placeholder':'Ingrese fecha terminado'}),
         }
@@ -181,7 +181,7 @@ class ActividadForm(forms.ModelForm):
 
         widgets = {
             'titulo':forms.TextInput(attrs={'class':'form-control','placeholder':'Ingrese título','autocomplete':'off','autocorrect':'off','spellcheck':'false'}),
-            'contenido':forms.Textarea(attrs={'class':'form-control','rows':15,'placeholder':'Ingrese contenido','autocomplete':'off','autocorrect':'off','spellcheck':'false'}),
+            'contenido':forms.Textarea(attrs={'class':'form-control textarea-css','rows':15,'placeholder':'Ingrese contenido','autocomplete':'off','autocorrect':'off','spellcheck':'false'}),
             'fecha':forms.TextInput(attrs={'class':'form-control','placeholder':'Seleccione fecha','data-date-format':'mm/dd/yyyy'}),
             'hora':forms.TextInput(attrs={'class':'form-control','placeholder':'Seleccione hora'}),
         }

@@ -24,3 +24,17 @@ def agenda_administracion(request):
         return render(request, 'administracion/index.html', {'usuario_logeado':username,'actividades':lista_actividades})
     else:
         return redirect('agenda_ingreso')
+
+def agenda_skin_sketchy(request):
+    if service.validar_session(request):
+        request.session['skin'] = 1
+        return HttpResponse()
+    else:
+        return HttpResponse()
+
+def agenda_skin_cursive(request):
+    if service.validar_session(request):
+        request.session['skin'] = 2
+        return HttpResponse()
+    else:
+        return HttpResponse()

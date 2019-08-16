@@ -63,7 +63,7 @@ class Service(object):
 
     def listarCategorias(self,patron):
         try:
-            return Categoria.objects.filter(nombre__icontains=patron).order_by('id')
+            return Categoria.objects.filter(nombre__icontains=patron).order_by('nombre')
         except Exception as e:
             pass
 

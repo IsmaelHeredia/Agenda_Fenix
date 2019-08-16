@@ -1,4 +1,4 @@
-Agenda Fenix
+Agenda Fenix2
 ================
 
 Este proyecto es una agenda que hice en Python-Django que guarda todo en una base de datos SQLite.

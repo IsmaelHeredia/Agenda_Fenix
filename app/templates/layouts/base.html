@@ -12,14 +12,20 @@
 
     <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" />
     <link href="{% static 'dist/sweetalert.css' %}" rel="stylesheet" />
-    <link href="{% static 'css/bootstrapValidator.css' %}" rel="stylesheet" />
-    <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+    
+    {% if request.session.skin == 1 %}
+        <link id="theme" href="{% static 'css/style_sketchy.css' %}" rel="stylesheet" />
+    {% elif request.session.skin == 2 %}
+        <link id="theme" href="{% static 'css/style_cursive.css' %}" rel="stylesheet" />
+    {% else %}
+        <link id="theme" href="{% static 'css/style_sketchy.css' %}" rel="stylesheet" />
+    {% endif %}
     
     <script src="{% static 'js/jquery-3.2.1.js' %}"></script>
+    <script src="{% static 'js/popper.js' %}" charset="UTF-8"></script>
     <script src="{% static 'bootstrap/js/bootstrap.js' %}"></script>
     <script src="{% static 'dist/sweetalert-dev.js' %}"></script>
-    <script src="{% static 'js/bootstrapValidator.js' %}"></script>
-    <script src="{% static 'js/ingreso-forms.js' %}"></script>
+    <script src="{% static 'js/app.js' %}"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -33,5 +39,10 @@
             {% block content %}
             {% endblock %}
         </section>
+        {% if messages %}
+          {% for message in messages %}
+            {% autoescape off %}{{ message }}{% endautoescape %}
+          {% endfor %}
+        {% endif %}        
     </body>
 </html>

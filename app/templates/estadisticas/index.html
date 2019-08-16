@@ -6,10 +6,15 @@
 
 {% block content %}
 
-	<h1 class="text-center">Estadísticas : Cantidad de notas por categoria</h1>
-	<div class="space"></div>
+	<div class="titulo">
+		<h1>Estadísticas : Cantidad de notas por categoria</h1>
+	</div>
+
+	<div class="espacio"></div>
+
 	<h3 class="text-center">Cantidad de notas en total : {{cantidad_notas}}</h3>
-	<div class="space">
+
+	<div class="espacio">
 
 	<script type="text/javascript">
 	$(function () {
@@ -17,7 +22,7 @@
 			chart: {
 			    type: 'bar',
 			    style: {
-			        fontFamily: 'Damion',
+			    	fontFamily: 'Arimo',
 			        fontSize: 17
 			    },
 			    events: {

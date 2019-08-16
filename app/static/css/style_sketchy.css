@@ -1,0 +1,257 @@
+@charset "utf-8";
+@import url('https://fonts.googleapis.com/css?family=Arimo');
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+    font-size: 25px;
+    margin-bottom: 150px;
+}
+
+button[type="submit"],a {
+  font-size:25px !important;
+}
+
+input[type="search"],input[type="text"],input[type="password"],textarea {
+  font-size:25px !important;
+}
+
+select {
+  padding: 0px 10px !important;
+  font-size:25px !important;
+}
+
+p,td,th {
+  font-size:25px !important;
+}
+
+ul,li {
+  font-size:25px !important;
+}
+
+legend {
+    font-size: 28px; 
+    text-align: center;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  line-height: 60px;
+  color:black;
+}
+
+h1 {
+  font-size: 50px;
+}
+
+h2 {
+  font-size: 40px;
+}
+
+b {
+  font-size: 28px;
+  font-weight:bold;
+}
+
+.ingreso {
+  margin-left: 30%;
+  margin-right: 30%;
+  margin-top: 10%;
+}
+
+.cuenta {
+  margin-left: 20%;
+  margin-right: 20%;
+}
+
+.instalar {
+  margin-left: 30%;
+  margin-right: 30%;
+}
+
+.ingreso {
+    margin-left: 25%;
+    margin-right: 25%;
+    margin-top: 10%;
+}
+
+.contenedor {
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.card-header {
+    color: white;
+}
+
+.boton-normal {
+    width: 110px;
+}
+
+.boton-largo {
+    width: 250px;
+}
+
+.boton-extra-largo {
+    width: 300px;
+}
+
+.mini-espacio {
+  margin-top: 1em;
+}
+
+.espacio {
+    margin-top: 2em;
+}
+
+.doble-espacio {
+    margin-top: 3em;
+}
+
+.espacio-icono {
+    margin-right:5px;
+}
+
+.textarea-css {
+  padding-top: 20px;
+  padding-left: 25px;
+}
+
+.list-group {
+    margin-bottom: 30px;
+}
+
+.nbsp {
+  padding-right : 10px
+}
+
+.titulo {
+    margin-top: 5em;
+    margin-bottom: 1em;
+    text-align:center;
+}
+
+.contenido {
+    font-size: 25px;
+    border: 0;
+    background-color: transparent;
+    white-space: pre-wrap;
+    margin: 0;
+    padding : 0;
+}
+
+/* Tablas */
+
+th {
+  text-align: center;
+  vertical-align: middle;
+}
+
+td {
+  text-align: center;
+  vertical-align: middle;
+}
+
+/* Botones */
+
+.negro {
+    color:black;
+}
+
+.agrandar {
+    font-size: 1.4em;
+}
+
+.azul {
+    color:#47A6FF;
+}
+
+.verde {
+    color:#228B22;
+}
+
+.rojo {
+    color:#8B0000;
+}
+
+.naranja {
+    color:#FEB952;
+}
+
+.remarcar {
+    font-weight: bold;
+}
+
+.centrar {
+    text-align:center;
+}
+
+/* Botones centrados */
+
+.lead .btn,.lead .a {
+    margin-bottom: 5px;
+}
+
+/* Validaciones */
+
+.invalid-feedback {
+    font-size:20px;
+}
+
+/* Links */
+
+a  
+{   
+    color:#6495ED;
+    text-decoration:none !important;   
+}
+
+a:hover {
+    color:#6495ED;
+}
+
+/* Calendario */
+
+#calendario {
+  max-width: 80%;
+  margin: 0 auto;
+}
+
+.fc-time,.fc-title {
+  font-size: 18px;
+}
+
+/* Sweet Alert */
+
+.sweet-alert { 
+  font-family: Neucha;  
+  font-size:25px !important;
+}
+
+.sweet-alert button {
+    font-size:23px !important;
+}
+
+/* Herramientas de contenido */
+
+.herramienta {
+  width: 50px;
+  font-size: 20px !important;
+  color: white;
+  margin-bottom: 10px;
+}
+
+/* Tablas */
+
+.hide {
+    display:none; 
+}
+
+.link-tabla {
+    color:#333333;
+}

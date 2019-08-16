@@ -10,49 +10,49 @@
 
 {% block content %}
 
-	<h1 class="text-center">Categorias</h1>
-	<div class="space"></div>
-	
-	<div class="panel contenedor panel-primary">
-	{% if nuevo %}
-		<div class="panel-heading">Agregar categoria</div>
-	{% else %}
-		<div class="panel-heading">Editando la categoria {{categoria.nombre}}</div>
-	{% endif %}
-	<div class="panel-body">
-	{% if nuevo %}
-		<form action="{% url 'agenda_categoria_view' %}" method="POST" id="categoriaForm" class="form-horizontal">
-    {% else %}
-    	<form action="{% url 'agenda_categoria_edit' categoria.id %}" method="POST" id="categoriaForm" class="form-horizontal">
-    {% endif %}
-	  {% csrf_token %}
-	  <fieldset>
-		<legend>Datos</legend>
-	    <div class="form-group" name="form-group-nombre">
-	      <label for="inputNombre" class="col-lg-2 control-label">{{form.nombre.label}}</label>
-	      <div class="col-lg-10">
-	        {{form.nombre}}
-	      </div>
-	    </div>
-        <div class="text-center">
-            <div class="btn-toolbar">
-				{% if nuevo %}
-					<button type="submit" class="btn btn-primary button_class center-block" name="agregar_categoria"><i class="fa fa-plus right_space" aria-hidden="true"></i>Agregar</button>
-				{% else %}
-					<button type="submit" class="btn btn-primary button_class center-block" name="editar_categoria"><i class="fa fa-pencil-square-o right_space" aria-hidden="true"></i>Editar</button>
-				{% endif %}
-                <a href="{% url 'agenda_categoria_list' %}" class="btn btn-primary button_class center-block" role="button"><i class="fa fa-arrow-left right_space" aria-hidden="true"></i>Volver</a>
-            </div>
-        </div>
-	  </fieldset>
-	</form>        
-	</div>
+	<div class="titulo">
+		<h1>Categorias</h1>
 	</div>
 
-	{% if messages %}
-		{% for message in messages %}
-			{% autoescape off %}{{ message }}{% endautoescape %}
-		{% endfor %}
-	{% endif %}
+	<div class="espacio"></div>
+	
+	<div class="card card-primary contenedor">
+		{% if nuevo %}
+			<div class="card-header bg-primary">Agregar categoria</div>
+		{% else %}
+			<div class="card-header bg-primary">Editando la categoria {{categoria.nombre}}</div>
+		{% endif %}
+		<div class="card-body">
+			<div class="card-block">
+				{% if nuevo %}
+					<form action="{% url 'agenda_categoria_view' %}" method="POST" class="needs-validation" novalidate="novalidate" id="categoriaForm">
+			    {% else %}
+			    	<form action="{% url 'agenda_categoria_edit' categoria.id %}" method="POST" class="needs-validation" novalidate="novalidate" id="categoriaForm">
+			    {% endif %}
+				{% csrf_token %}
+			    <fieldset>
+					<legend>Datos</legend>
+				    <div class="form-group" name="form-group-nombre">
+				      <label for="inputNombre">{{form.nombre.label}}</label>
+				      {{form.nombre}}
+	                  <div class="invalid-feedback">
+	                    El nombre es requerido
+	                  </div>				      
+				    </div>
+			        <div class="text-center">
+			            <p class="lead">
+							{% if nuevo %}
+								<button type="submit" class="btn btn-primary boton-largo" name="agregar_categoria"><i class="fa fa-plus espacio-icono" aria-hidden="true"></i>Agregar</button>
+							{% else %}
+								<button type="submit" class="btn btn-primary boton-largo" name="editar_categoria"><i class="fa fa-pencil-square-o espacio-icono" aria-hidden="true"></i>Editar</button>
+							{% endif %}
+			                <a href="{% url 'agenda_categoria_list' %}" class="btn btn-primary boton-largo" role="button"><i class="fa fa-arrow-left espacio-icono" aria-hidden="true"></i>Volver</a>
+			            </p>
+			        </div>
+			    </fieldset>
+			    </form>
+			</div>       
+		</div>
+	</div>
 
 {% endblock %}

@@ -13,6 +13,9 @@ urlpatterns = [
 
     url(r'^administracion/$',  administracion.agenda_administracion, name='agenda_administracion'),
 
+    url(r'^administracion/skins/sketchy/$',  administracion.agenda_skin_sketchy, name='agenda_skin_sketchy'),
+    url(r'^administracion/skins/cursive/$',  administracion.agenda_skin_cursive, name='agenda_skin_cursive'),
+
     url(r'^administracion/categorias/$',  categorias.agenda_categoria_list, name='agenda_categoria_list'),
     url(r'^administracion/categorias/agregar$', categorias.agenda_categoria_view, name='agenda_categoria_view'),
     url(r'^administracion/categorias/editar/(?P<id_categoria>\d+)/$', categorias.agenda_categoria_edit, name='agenda_categoria_edit'),

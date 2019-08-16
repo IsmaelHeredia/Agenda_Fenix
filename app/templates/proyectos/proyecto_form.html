@@ -10,109 +10,117 @@
 
 {% block content %}
 
-	<h1 class="text-center">Proyectos</h1>
-	<div class="space"></div>
-	
-	<div class="panel contenedor panel-primary">
-	{% if nuevo %}
-		<div class="panel-heading">Agregar proyecto</div>
-	{% else %}
-		<div class="panel-heading">Editando el proyecto {{ proyecto.titulo }}</div>
-	{% endif %}
-	<div class="panel-body">
-	{% if nuevo %}
-		<form action="{% url 'agenda_proyecto_view' %}" method="POST" id="proyectoForm" class="form-horizontal">
-    {% else %}
-    	<form action="{% url 'agenda_proyecto_edit' proyecto.id %}" method="POST" id="proyectoForm" class="form-horizontal">
-    {% endif %}
-	  {% csrf_token %}
-	  <fieldset>
-		<legend>Datos</legend>
-	    <div class="form-group" name="form-group-titulo">
-	      <label for="inputTitulo" class="col-lg-2 control-label">{{form.titulo.label}}</label>
-	      <div class="col-lg-10">
-	        {{form.titulo}}
-	      </div>
-	    </div>
-	    <div class="form-group" name="form-group-contenido">
-			<label for="inputContenido" class="col-lg-2 control-label">{{form.contenido.label}}</label>
-			<div class="col-lg-10">
-				{{form.contenido}}
-				<div class="tiny-space"></div>
-				<div class="text-center">
-					<div class="btn-toolbar">
-						<div class="col-md-3">
-		    				<a class="btn btn-info herramienta" name="agregar_centrar" role="button" data-toggle="tooltip" title="Centrar"><i class="fa fa-align-center" aria-hidden="true"></i></a>									
-						</div>
-						<div class="col-md-3">
-		    				<a class="btn btn-info herramienta" name="agregar_negrita" role="button" data-toggle="tooltip" title="Agregar negrita"><i class="fa fa-bold" aria-hidden="true"></i></a>								
-						</div>
-		    			<div class="col-md-3">
-		    				<a class="btn btn-info herramienta" name="agregar_url" role="button" data-toggle="tooltip" title="Agregar URL"><i class="fa fa-link" aria-hidden="true"></i></a>			  	
-		    			</div>
-		    			<div class="col-md-3">
-		    				<a class="btn btn-info herramienta" name="agregar_imagen" role="button" data-toggle="tooltip" title="Agregar imagen"><i class="fa fa-picture-o" aria-hidden="true"></i></a>
-		    			</div>
-		    			<div class="col-md-3">
-		    				<a class="btn btn-info herramienta" name="agregar_video" role="button" data-toggle="tooltip" title="Agregar video"><i class="fa fa-video-camera" aria-hidden="true"></i></a>
-		    			</div>
-		    			<div class="col-md-3">
-		    				<a class="btn btn-info herramienta" name="agregar_lista" role="button" data-toggle="tooltip" title="Agregar lista"><i class="fa fa-list-ul" aria-hidden="true"></i></a>
-		    			</div>
-		    			<div class="col-md-3">
-		    				<a class="btn btn-info herramienta" name="agregar_estado" role="button" data-toggle="tooltip" title="Agregar estado"><i class="fa fa-th-list" aria-hidden="true"></i></a>
-		    			</div>
-		    			<div class="col-md-3">
-		    				<a class="btn btn-info herramienta" name="mostrar_comandos" role="button" data-toggle="tooltip" title="Mostrar comandos"><i class="fa fa-info" aria-hidden="true"></i></a>
-		    			</div>
-					</div>
-				</div>
-			</div>
-	    	<div class="tiny-space"></div>
-	    </div>
-	    <div class="form-group" name="form-group-fecha-inicio">
-	      <label for="inputFechaInicio" class="col-lg-2 control-label">{{form.fecha_inicio.label}}</label>
-	      <div class="col-lg-10">
-          	<div class="input-group input-append date" id="dpFecha_inicio">
-	          	<span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
-	          	<input type="text" name="{{form.fecha_inicio.name}}" class="form-control" placeholder="Seleccione fecha de inicio" value="{{form.fecha_inicio.value|date:'d/m/Y'}}">
-	    	</div>
-	      </div>
-	    </div>
-	    <div class="form-group" name="form-group-fecha-terminado">
-	      <label for="inputFechaTerminado" class="col-lg-2 control-label">{{form.fecha_terminado.label}}</label>
-	      <div class="col-lg-10">
-          	<div class="input-group input-append date" id="dpFecha_terminado">
-	          	<span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
-	          	<input type="text" name="{{form.fecha_terminado.name}}" class="form-control" placeholder="Seleccione fecha de terminado" value="{{form.fecha_terminado.value|date:'d/m/Y'}}">
-	    	</div>
-	      </div>
-	    </div>
-	    <div class="form-group" name="form-group-terminado">
-	      <label for="inputTerminado" class="col-lg-2 control-label">Estado</label>
-	      <div class="col-lg-10">
-	        {{form.esta_terminado}} Terminado
-	      </div>
-	    </div>
-        <div class="text-center">
-            <div class="btn-toolbar">
-				{% if nuevo %}
-					<button type="submit" class="btn btn-primary button_class center-block" name="agregar_proyecto"><i class="fa fa-plus right_space" aria-hidden="true"></i>Agregar</button>
-				{% else %}
-					<button type="submit" class="btn btn-primary button_class center-block" name="editar_proyecto"><i class="fa fa-pencil-square-o right_space" aria-hidden="true"></i>Editar</button>
-				{% endif %}
-                <a href="{% url 'agenda_proyecto_list' %}" class="btn btn-primary button_class center-block" role="button"><i class="fa fa-arrow-left right_space" aria-hidden="true"></i>Volver</a>
-            </div>
-        </div>
-	  </fieldset>
-	</form>        
-	</div>
+	<div class="titulo">
+		<h1>Proyectos</h1>
 	</div>
 
-	{% if messages %}
-		{% for message in messages %}
-			{% autoescape off %}{{ message }}{% endautoescape %}
-		{% endfor %}
-	{% endif %}
+	<div class="espacio"></div>
+	
+	<div class="card card-primary contenedor">
+		{% if nuevo %}
+			<div class="card-header bg-primary">Agregar proyecto</div>
+		{% else %}
+			<div class="card-header bg-primary">Editando el proyecto {{ proyecto.titulo }}</div>
+		{% endif %}
+		<div class="card-body">
+			<div class="card-block">
+			{% if nuevo %}
+				<form action="{% url 'agenda_proyecto_view' %}" method="POST" class="needs-validation" novalidate="novalidate" id="proyectoForm">
+		    {% else %}
+		    	<form action="{% url 'agenda_proyecto_edit' proyecto.id %}" method="POST" class="needs-validation" novalidate="novalidate" id="proyectoForm">
+		    {% endif %}
+			  {% csrf_token %}
+			  <fieldset>
+				<legend>Datos</legend>
+			    <div class="form-group" name="form-group-titulo">
+			      <label>{{form.titulo.label}}</label>
+				  {{form.titulo}}
+	              <div class="invalid-feedback">
+	                El título es requerido
+	               </div>				  
+			    </div>
+			    <div class="form-group" name="form-group-contenido">
+					<label>{{form.contenido.label}}</label>
+					{{form.contenido}}
+	              	<div class="invalid-feedback">
+	                  El contenido es requerido
+	                </div>
+			    </div>
+				<div class="mini-espacio"></div>
+				<div class="text-center">
+					<p class="lead">
+	    				<a class="btn btn-info herramienta" name="agregar_centrar" role="button" data-toggle="tooltip" title="Centrar"><i class="fa fa-align-center" aria-hidden="true"></i></a>	
+	    				<a class="btn btn-info herramienta" name="agregar_negrita" role="button" data-toggle="tooltip" title="Agregar negrita"><i class="fa fa-bold" aria-hidden="true"></i></a>								
+	    				<a class="btn btn-info herramienta" name="agregar_url" role="button" data-toggle="tooltip" title="Agregar URL"><i class="fa fa-link" aria-hidden="true"></i></a>			  	
+	    				<a class="btn btn-info herramienta" name="agregar_imagen" role="button" data-toggle="tooltip" title="Agregar imagen"><i class="fa fa-picture-o" aria-hidden="true"></i></a>
+	    				<a class="btn btn-info herramienta" name="agregar_video" role="button" data-toggle="tooltip" title="Agregar video"><i class="fa fa-video-camera" aria-hidden="true"></i></a>
+	    				<a class="btn btn-info herramienta" name="agregar_lista" role="button" data-toggle="tooltip" title="Agregar lista"><i class="fa fa-list-ul" aria-hidden="true"></i></a>
+	    				<a class="btn btn-info herramienta" name="agregar_estado" role="button" data-toggle="tooltip" title="Agregar estado"><i class="fa fa-th-list" aria-hidden="true"></i></a>
+	    				<a class="btn btn-info herramienta" name="mostrar_comandos" role="button" data-toggle="tooltip" title="Mostrar comandos"><i class="fa fa-info" aria-hidden="true"></i></a>
+					</p>
+				</div>
+		    	<div class="mini-espacio"></div>
+			    <div class="form-group" name="form-group-fecha-inicio">
+			      <div class="row">
+			    	  <div class="col-lg-2">
+				    	<label>{{form.fecha_inicio.label}}</label>
+				      </div>	
+				      <div class="col-lg-3">
+		                <div class="input-group date" id="dpFecha_inicio" data-target-input="nearest">
+		                    <input type="text" class="form-control datetimepicker-input" name="{{form.fecha_inicio.name}}" data-target="#dpFecha" value="{{form.fecha_inicio.value|date:'d/m/Y'}}"/>
+		                    <div class="input-group-append" data-target="#dpFecha_inicio" data-toggle="datetimepicker">
+		                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+		                    </div>
+		                </div>			      	
+				      </div>
+			  	  </div>	  	  
+			    </div>
+			    <div class="form-group" name="form-group-fecha-terminado">
+			      <div class="row">
+			    	  <div class="col-lg-2">
+				    	<label>{{form.fecha_terminado.label}}</label>
+				      </div>	
+				      <div class="col-lg-3">
+		                <div class="input-group date" id="dpFecha_terminado" data-target-input="nearest">
+		                    <input type="text" class="form-control datetimepicker-input" name="{{form.fecha_terminado.name}}" data-target="#dpFecha" value="{{form.fecha_terminado.value|date:'d/m/Y'}}"/>
+		                    <div class="input-group-append" data-target="#dpFecha_terminado" data-toggle="datetimepicker">
+		                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+		                    </div>
+		                </div>			      	
+				      </div>
+			  	  </div>	  	  
+			    </div>			    
+			    <div class="form-group" name="form-group-terminado">
+			    	<div class="row">
+			    		<div class="col-lg-2">
+				    		<label>Estado</label>
+				    	</div>
+				    	<div class="col-lg-3">
+					    	<div class="custom-control custom-checkbox">
+					    		{% if form.esta_terminado.value %}
+					    			<input class="custom-control-input" id="esta_terminado" name="esta_terminado" checked="checked" type="checkbox">
+					    		{% else %}
+					    			<input class="custom-control-input" id="esta_terminado" name="esta_terminado" type="checkbox">
+					    		{% endif %}
+					    		<label class="custom-control-label" for="esta_terminado">Terminado</label>
+						    </div>
+						</div>
+					</div>
+			    </div>
+		        <div class="text-center">
+		            <p class="lead">
+						{% if nuevo %}
+							<button type="submit" class="btn btn-primary boton-largo" name="agregar_proyecto"><i class="fa fa-plus espacio-icono" aria-hidden="true"></i>Agregar</button>
+						{% else %}
+							<button type="submit" class="btn btn-primary boton-largo" name="editar_proyecto"><i class="fa fa-pencil-square-o espacio-icono" aria-hidden="true"></i>Editar</button>
+						{% endif %}
+		                <a href="{% url 'agenda_proyecto_list' %}" class="btn btn-primary boton-largo" role="button"><i class="fa fa-arrow-left espacio-icono" aria-hidden="true"></i>Volver</a>
+		            </p>
+		        </div>
+			  </fieldset>
+			</form> 
+			</div>       
+		</div>
+	</div>
 
 {% endblock %}

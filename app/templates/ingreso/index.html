@@ -3,39 +3,37 @@
 {% block title %}Ingreso{% endblock %}
 
 {% block content %}
-  <div class="panel ingreso panel-primary">
-    <div class="panel-heading">Ingreso</div>
-      <div class="panel-body">
-          <form action="{% url 'agenda_ingreso' %}" method="POST" class="form-horizontal" id="ingresoForm">
-            {% csrf_token %}
-            <fieldset>
-              <legend>Datos</legend>
-              <div class="form-group" name="form-group-username">
-                <label for="inputTexto1" class="col-lg-2 control-label">{{form.usuario.label}}</label>
-                <div class="col-lg-10">
+  <div class="card card-primary ingreso">
+    <div class="card-header bg-primary">Ingreso</div>
+      <div class="card-body">
+          <div class="card-block">
+            <form action="{% url 'agenda_ingreso' %}" method="POST" class="needs-validation" novalidate="novalidate" id="ingresoForm">
+              {% csrf_token %}
+              <fieldset>
+                <legend>Datos</legend>
+                <div class="form-group" name="form-group-usuario">
+                  <label>{{form.usuario.label}}</label>
                   {{form.usuario}}
+                  <div class="invalid-feedback">
+                      El usuario es requerido
+                  </div>       
                 </div>
-              </div>
-              <div class="form-group" name="form-group-password">
-                <label for="inputTexto2" class="col-lg-2 control-label">{{form.clave.label}}</label>
-                <div class="col-lg-10">
+                <div class="form-group" name="form-group-clave">
+                  <label>{{form.clave.label}}</label>
                   {{form.clave}}
+                  <div class="invalid-feedback">
+                      La clave es requerida
+                  </div>                
                 </div>
-              </div>
-              <div class="form-group">
-                  <div class="col-md-4 col-md-offset-4">
-                      <button type="submit" name="ingresar" id="ingresar" class="btn btn-primary btn-block">Ingresar</button>
-                  </div>
-              </div>
-            </fieldset>
-          </form>
+               <div class="text-center">
+                  <p class="lead">
+                    <button type="submit" name="ingresar" id="ingresar" class="btn btn-primary boton-largo">Ingresar</button>
+                  </p>
+                </div>
+              </fieldset>
+            </form>
+          </div>
     </div>
   </div>
-
-  {% if messages %}
-    {% for message in messages %}
-      {% autoescape off %}{{ message }}{% endautoescape %}
-    {% endfor %}
-  {% endif %}
 
 {% endblock %}

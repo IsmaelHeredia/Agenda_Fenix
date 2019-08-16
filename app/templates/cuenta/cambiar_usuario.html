@@ -4,46 +4,50 @@
 
 {% block content %}
 
-	<h1 class="text-center">Cuenta</h1>
-	<div class="space"></div>
-
-	<div class="panel cuenta panel-primary">
-	<div class="panel-heading">Cambiar Usuario</div>
-	<div class="panel-body">
-	  <form action="{% url 'agenda_cambiar_usuario' %}" method="POST" id="cambiarUsuarioForm" class="form-horizontal">
-	  	{% csrf_token %}
-	    <fieldset>
-	      <legend>Datos</legend>
-	      <div class="form-group" name="form-group-usuario">
-	        <label for="inputNombre" class="col-lg-2 control-label">{{form.usuario.label}}</label>
-	        <div class="col-lg-10">
-	          {{form.usuario}}
-	        </div>
-	      </div>
-	      <div class="form-group" name="form-group-nuevo-usuario">
-	        <label for="inputNuevo" class="col-lg-2 control-label">{{form.nuevo_usuario.label}}</label>
-	        <div class="col-lg-10">
-	          {{form.nuevo_usuario}}
-	        </div>
-	      </div>
-	      <div class="form-group" name="form-group-clave">
-	        <label for="inputActual" class="col-lg-2 control-label">{{form.clave.label}}</label>
-	        <div class="col-lg-10">
-	          {{form.clave}}
-	        </div>
-	      </div>
-	      <div class="form-group">
-	          <button type="submit" class="btn btn-primary center-block" name="cambiar" id="cambiar"><i class="fa fa-pencil-square-o right_space" aria-hidden="true"></i>Realizar cambio</button>
-	      </div>
-	    </fieldset>
-	  </form>        
-	</div>
+	<div class="titulo">
+		<h1>Cuenta</h1>
 	</div>
 
-	{% if messages %}
-		{% for message in messages %}
-			{% autoescape off %}{{ message }}{% endautoescape %}
-		{% endfor %}
-	{% endif %}
+	<div class="espacio"></div>
+
+	<div class="card card-primary cuenta">
+		<div class="card-header bg-primary">Cambiar Usuario</div>
+		<div class="card-body">
+		  <div class="card-block">
+			  <form action="{% url 'agenda_cambiar_usuario' %}" method="POST" class="needs-validation" novalidate="novalidate" id="cambiarUsuarioForm">
+			  	{% csrf_token %}
+			    <fieldset>
+			      <legend>Datos</legend>
+			      <div class="form-group" name="form-group-usuario">
+			        <label>{{form.usuario.label}}</label>
+					{{form.usuario}}
+                    <div class="invalid-feedback">
+                      El usuario es requerido
+                    </div>					
+			      </div>
+			      <div class="form-group" name="form-group-nuevo-usuario">
+			        <label>{{form.nuevo_usuario.label}}</label>
+					{{form.nuevo_usuario}}
+                    <div class="invalid-feedback">
+                      El nuevo usuario es requerido
+                    </div>					
+			      </div>
+			      <div class="form-group" name="form-group-clave">
+			        <label>{{form.clave.label}}</label>
+			        {{form.clave}}
+                    <div class="invalid-feedback">
+                      La clave es requerida
+                    </div>	        
+			      </div>
+			      <div class="text-center">
+			      	  <p class="lead">
+			          	<button type="submit" class="btn btn-primary boton-largo" name="cambiar" id="cambiar"><i class="fa fa-pencil-square-o espacio-icono" aria-hidden="true"></i>Realizar cambio</button>
+			      	  </p>
+			      </div>
+			    </fieldset>
+			  </form>
+		  </div>        
+		</div>
+	</div>
 
 {% endblock %}

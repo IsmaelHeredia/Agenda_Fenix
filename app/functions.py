@@ -2,7 +2,7 @@
 
 import base64,hashlib,os,sys,time,datetime,time,re
 from time import gmtime, strftime
-import pywintypes, win32file, win32con
+#import pywintypes, win32file, win32con
 from django.utils.html import escape
 from django.utils.safestring import mark_safe
 

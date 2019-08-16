@@ -6,8 +6,11 @@
 
 {% block content %}
 
-	<h1 class="text-center">Actividades</h1>
-	<div class="space"></div>
+	<div class="titulo">
+		<h1>Actividades</h1>
+	</div>
+	
+	<div class="espacio"></div>
 
 	<script>
 	$(document).ready(function() {
@@ -37,16 +40,10 @@
 
 	<div id="calendario"></div>
 
-	<div class="space"></div>
+	<div class="espacio"></div>
 
 	<div align="center">
-	    <a href="{% url 'agenda_actividad_view' %}" class="btn btn-primary btn-block button_large" role="button"><i class="fa fa-plus right_space" aria-hidden="true"></i>Agregar nueva actividad</a>
+	    <a href="{% url 'agenda_actividad_view' %}" class="btn btn-primary boton-extra-largo" role="button"><i class="fa fa-plus espacio-icono" aria-hidden="true"></i>Agregar nueva actividad</a>
 	</div>
-
-	{% if messages %}
-		{% for message in messages %}
-			{% autoescape off %}{{ message }}{% endautoescape %}
-		{% endfor %}
-	{% endif %}
-
+	
 {% endblock %}

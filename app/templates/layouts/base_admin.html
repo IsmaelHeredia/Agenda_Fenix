@@ -12,38 +12,37 @@
 
     <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" />
     <link href="{% static 'dist/sweetalert.css' %}" rel="stylesheet" />
-    <link href="{% static 'css/toastr.min.css' %}" rel="stylesheet" />
-    <link href="{% static 'css/bootstrapValidator.css' %}" rel="stylesheet" />
-    <link href="{% static 'css/dataTables.bootstrap.min.css' %}" rel="stylesheet" />
-    <link href="{% static 'css/bootstrap-datetimepicker.min.css' %}" rel="stylesheet" />
-    <link href="{% static 'css/bootstrap-clockpicker.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/dataTables.bootstrap4.min.css' %}" rel="stylesheet" />
     <link href="{% static 'font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" />
 
     <link href="{% static 'css/fullcalendar.min.css' %}" rel="stylesheet" />
     <link href="{% static 'css/fullcalendar.print.min.css' %}" rel="stylesheet" media="print"/>
 
-    <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+    {% if request.session.skin == 1 %}
+        <link id="theme" href="{% static 'css/style_sketchy.css' %}" rel="stylesheet" />
+    {% elif request.session.skin == 2 %}
+        <link id="theme" href="{% static 'css/style_cursive.css' %}" rel="stylesheet" />
+    {% else %}
+        <link id="theme" href="{% static 'css/style_sketchy.css' %}" rel="stylesheet" />
+    {% endif %}
     
-    <script src="{% static 'js/moment.min.js' %}" charset="UTF-8"></script>
+    <script src="{% static 'js/moment.js' %}" charset="UTF-8"></script>
     <script src="{% static 'js/jquery-3.2.1.js' %}" charset="UTF-8"></script>
-    <script src="{% static 'js/jquery-ui.js' %}" charset="UTF-8"></script>
+    <script src="{% static 'js/popper.js' %}" charset="UTF-8"></script>
     <script src="{% static 'bootstrap/js/bootstrap.js' %}" charset="UTF-8"></script>
-    <script src="{% static 'js/bootstrap-datetimepicker.js' %}" charset="UTF-8"></script>
-    <script src="{% static 'js/bootstrap-datetimepicker.es.js' %}" charset="UTF-8"></script>
-    <script src="{% static 'js/bootstrap-clockpicker.min.js' %}" charset="UTF-8"></script>
+
+    <link href="{% static 'css/tempusdominus-bootstrap-4.min.css' %}" rel="stylesheet" />
+    <script src="{% static 'js/tempusdominus-bootstrap-4.min.js' %}" charset="UTF-8"></script>
 
     <script src="{% static 'js/fullcalendar.min.js' %}" charset="UTF-8"></script>
     <script src="{% static 'js/locale-all.js' %}" charset="UTF-8"></script>
-    
+
     <script src="{% static 'dist/sweetalert-dev.js' %}" charset="UTF-8"></script>
-    <script src="{% static 'js/toastr.min.js' %}" charset="UTF-8"></script>
-    <script src="{% static 'js/bootstrapValidator.js' %}" charset="UTF-8"></script>
     <script src="{% static 'js/highcharts.js' %}" charset="UTF-8"></script>
     <script src="{% static 'js/exporting.js' %}" charset="UTF-8"></script>
     <script src="{% static 'js/jquery.dataTables.min.js' %}" charset="UTF-8"></script>
-    <script src="{% static 'js/dataTables.bootstrap.min.js' %}" charset="UTF-8"></script>
-    <script src="{% static 'js/admin-app.js' %}" charset="UTF-8"></script>
-    <script src="{% static 'js/admin-forms.js' %}" charset="UTF-8"></script>
+    <script src="{% static 'js/dataTables.bootstrap4.min.js' %}" charset="UTF-8"></script>
+    <script src="{% static 'js/app-admin.js' %}" charset="UTF-8"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -53,67 +52,65 @@
         <![endif]-->
     </head>
     <body>
-        <nav class="navbar navbar-default">
-          <div class="container-fluid"> 
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#defaultNavbar1"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
-              <a class="navbar-brand" href="#">Agenda Fénix</a></div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="defaultNavbar1">
-              <ul class="nav navbar-nav">
-                <li class="active"><a href="{% url 'agenda_administracion' %}" name="inicio"><i class="fa fa-home right_space" aria-hidden="true"></i>Inicio<span class="sr-only">(current)</span></a></li>
-                <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-tasks right_space" aria-hidden="true"></i>Gestionar <span class="caret"></span></a>
-                  <ul class="dropdown-menu" role="menu">
-                    <li><a href="{% url 'agenda_categoria_list' %}" name="categorias">Categorias</a></li>
-                    <li><a href="{% url 'agenda_nota_list' %}" name="notas">Notas</a></li>
-                    <li><a href="{% url 'agenda_actividad_list' %}" name="actividades">Actividades</a></li>
-                    <li><a href="{% url 'agenda_proyecto_list' %}" name="proyectos">Proyectos</a></li>
-                  </ul>
-                </li>
-                <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-database right_space" aria-hidden="true"></i>Datos <span class="caret"></span></a>
-                  <ul class="dropdown-menu" role="menu">
-                    <li><a href="{% url 'agenda_importar' %}" name="importar">Importar</a></li>
-                    <li><a href="{% url 'agenda_exportar' %}" name="exportar">Exportar</a></li>
-                  </ul>
-                </li>
-                <li>
-                  <a href="{% url 'agenda_estadisticas' %}"><i class="fa fa-bar-chart right_space" aria-hidden="true"></i>Estadísticas</a>
-                </li>
-              </ul>
-              <ul class="nav navbar-nav navbar-right">
-                  <li class="dropdown user-dropdown">
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user right_space" aria-hidden="true"></i>{{ usuario_logeado }} <b class="caret"></b></a>
-                      <ul class="dropdown-menu">
-                          <li><a href="{% url 'agenda_cambiar_usuario' %}" name="cambiar_usuario">Cambiar Usuario</a></li>
-                          <li><a href="{% url 'agenda_cambiar_clave' %}" name="cambiar_clave">Cambiar Clave</a></li>
-                          <li class="divider"></li>
-                          <li><a href="{% url 'agenda_salir' %}">Salir</a></li>
-                      </ul>
-                  </li>
-              </ul>
+        <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary">
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand" href="#">Agenda Fénix 1.1</a>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active"><a class="nav-link" href="{% url 'agenda_administracion' %}" name="inicio"><i class="fa fa-home espacio-icono" aria-hidden="true"></i></span>Inicio<span class="sr-only">(current)</span></a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="gestionar"><i class="fa fa-tasks espacio-icono" aria-hidden="true"></i>Gestionar <span class="caret"></span></a>
+                        <div class="dropdown-menu" aria-labelledby="gestionar">
+                            <a class="dropdown-item" href="{% url 'agenda_categoria_list' %}" name="categorias">Categorias</a>
+                            <a class="dropdown-item" href="{% url 'agenda_nota_list' %}" name="notas">Notas</a>
+                            <a class="dropdown-item" href="{% url 'agenda_actividad_list' %}" name="actividades">Actividades</a>
+                            <a class="dropdown-item" href="{% url 'agenda_proyecto_list' %}" name="proyectos">Proyectos</a>       
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="datos"><i class="fa fa-database espacio-icono" aria-hidden="true"></i>Datos <span class="caret"></span></a>
+                        <div class="dropdown-menu" aria-labelledby="datos">
+                            <a class="dropdown-item" href="{% url 'agenda_importar' %}" name="importar">Importar</a>
+                            <a class="dropdown-item" href="{% url 'agenda_exportar' %}" name="exportar">Exportar</a>     
+                        </div>
+                    </li>                    
+                    <li class="nav-item"><a class="nav-link" href="{% url 'agenda_estadisticas' %}" name="estadisticas"><i class="fa fa-bar-chart espacio-icono" aria-hidden="true"></i></span>Estadísticas</span></a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="skins"><i class="fa fa-cogs espacio-icono" aria-hidden="true"></i>Skins <span class="caret"></span></a>
+                        <div class="dropdown-menu" aria-labelledby="skins">
+                            <a class="dropdown-item" href="" name="sketchy">Sketchy</a>
+                            <a class="dropdown-item" href="" name="cursive">Cursive</a>
+                        </div>
+                    </li>                    
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="cuenta" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user-circle espacio-icono" aria-hidden="true"></i>{{ usuario_logeado }} <span class="caret"></span></a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="cuenta">
+                            <a class="dropdown-item" href="{% url 'agenda_cambiar_usuario' %}" name="cambiar_usuario">Cambiar Usuario</a>
+                            <a class="dropdown-item" href="{% url 'agenda_cambiar_clave' %}" name="cambiar_clave">Cambiar Clave</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{% url 'agenda_salir' %}">Salir</a>
+                        </div>
+                    </li>
+                </ul>
             </div>
-            <!-- /.navbar-collapse --> 
-          </div>
-          <!-- /.container-fluid --> 
-        </nav>
+        </nav>     
         <section>
           <div class="container-fluid">
-            <div class="row">
-              <div class="col-md-6 col-md-offset-3">
-                <h1 class="text-center">Agenda Fénix 1.0</h1>
-              </div>
-            </div>
-            <hr>
-              {% block content %}
-              {% endblock %}
-            <br>
-            <hr>
+            {% block content %}
+            {% endblock %}
           </div>
         </section>
-        <footer class="footer">
+        {% if messages %}
+           {% for message in messages %}
+             {% autoescape off %}{{ message }}{% endautoescape %}
+           {% endfor %}
+        {% endif %}        
+        <footer>
             <div class="container text-center">
                 <p>Copyright &copy; Ismael Heredia 2018 &middot; All Rights Reserved &middot;</p>
             </div>
