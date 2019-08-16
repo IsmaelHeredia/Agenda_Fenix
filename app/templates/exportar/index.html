@@ -1,0 +1,39 @@
+{% extends 'layouts/base_admin.html' %}
+
+{% block title %}Exportar{% endblock %}
+
+{% block content %}
+
+  <h1 class="text-center">Exportar</h1>
+  <div class="space"></div>
+
+  <div class="panel contenedor panel-primary">
+    <div class="panel-heading">Exportar datos</div>
+      <div class="panel-body">
+          <form action="{% url 'agenda_exportar' %}" method="POST" class="form-horizontal" id="exportarForm">
+            {% csrf_token %}
+            <fieldset>
+              <legend>Datos</legend>
+              <div class="form-group" name="form-group-directorio">
+                <label for="inputTexto1" class="col-lg-2 control-label">{{form.directorio.label}}</label>
+                <div class="col-lg-10">
+                  {{form.directorio}}
+                </div>
+              </div>
+              <div class="form-group">
+                  <div class="col-md-4 col-md-offset-4">
+                      <button type="submit" name="importar" id="importar" class="btn btn-primary btn-block">Exportar</button>
+                  </div>
+              </div>
+            </fieldset>
+          </form>
+    </div>
+  </div>
+
+  {% if messages %}
+    {% for message in messages %}
+      {% autoescape off %}{{ message }}{% endautoescape %}
+    {% endfor %}
+  {% endif %}
+
+{% endblock %}

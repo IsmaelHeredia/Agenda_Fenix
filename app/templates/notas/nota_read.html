@@ -1,0 +1,36 @@
+{% extends 'layouts/base_admin.html' %}
+
+{% block title %}{{nota.titulo}}{% endblock %}
+
+{% block content %}
+
+	<h1 class="text-center">Notas</h1>
+	<div class="space"></div>
+	<div class="panel nota panel-primary">
+		<div class="panel-heading">Creada el {{ nota.fecha_registro|date:'d/m/Y' }}</div>
+		<div class="panel-body">
+			<div id="titulo">
+				<h1 class="text-center">{{nota.titulo}}</h1>
+			</div>
+			<div class="space"></div>
+			<div id="contenido">
+				<pre>{% autoescape off %}{{ nota.contenido }}{% endautoescape %}</pre>
+			</div>
+		</div>
+	</div>
+	<div class="space"></div>
+	<div class="text-center">
+	    <div class="btn-toolbar">
+	        <a href="{% url 'agenda_nota_edit' nota.id %}" class="btn btn-primary button_class center-block" role="button"><i class="fa fa-pencil-square-o right_space" aria-hidden="true"></i>Editar</a>
+	        <a href="{% url 'agenda_nota_delete' nota.id %}" class="btn btn-primary button_class center-block" role="button"><i class="fa fa-times right_space" aria-hidden="true"></i>Borrar</a>
+	        <a href="{% url 'agenda_nota_list' %}" class="btn btn-primary button_class center-block" role="button"><i class="fa fa-arrow-left right_space" aria-hidden="true"></i>Volver</a>
+	    </div>
+	</div>
+
+	{% if messages %}
+		{% for message in messages %}
+			{% autoescape off %}{{ message }}{% endautoescape %}
+		{% endfor %}
+	{% endif %}
+
+{% endblock %}

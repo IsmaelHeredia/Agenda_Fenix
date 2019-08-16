@@ -1,0 +1,66 @@
+{% extends 'layouts/base_admin.html' %}
+
+{% block title %}{{proyecto.titulo}}{% endblock %}
+
+{% block content %}
+
+	<h1 class="text-center">Proyectos</h1>
+	<div class="space"></div>
+	
+	<div class="panel contenedor panel-primary">
+		<div class="panel-heading">{{proyecto.titulo}}</div>
+		<div class="panel-body">
+			<div id="contenido">
+				<pre>{% autoescape off %}{{proyecto.contenido}}{% endautoescape %}</pre>
+			</div>
+			<div class="tiny-space"></div>
+			<div id="fecha_registro">
+				<b>Fecha de registro : </b>
+				{{proyecto.fecha_registro|date:'d/m/Y'}}
+			</div>
+			<div class="tiny-space"></div>
+			<div id="fecha_inicio">
+				<b>Fecha de inicio : </b>
+				{% if proyecto.fecha_inicio %}
+					{{proyecto.fecha_inicio|date:'d/m/Y'}}
+				{% else %}
+					Ninguna
+				{% endif %}
+			</div>
+			<div class="tiny-space"></div>
+			<div id="fecha_terminado">
+				<b>Fecha de terminado : </b>
+				{% if proyecto.fecha_terminado %}
+					{{proyecto.fecha_terminado|date:'d/m/Y'}}
+				{% else %}
+					Ninguna
+				{% endif %}
+			</div>
+			<div class="tiny-space"></div>
+			<div id="estado">
+				<b>Estado : </b>
+			    {% if proyecto.esta_terminado %}
+			    	Proyecto terminado
+			    {% else %}
+			    	Proyecto en proceso
+			    {% endif %}
+			</div>
+			<div class="tiny-space"></div>
+		</div>
+	</div>
+	<div class="space"></div>
+	<div class="text-center">
+	    <div class="btn-toolbar">
+	        <a href="{% url 'agenda_proyecto_edit' proyecto.id %}" class="btn btn-primary button_class center-block" role="button"><i class="fa fa-pencil-square-o right_space" aria-hidden="true"></i>Editar</a>
+	        <a href="{% url 'agenda_proyecto_delete' proyecto.id %}" class="btn btn-primary button_class center-block" role="button"><i class="fa fa-times right_space" aria-hidden="true"></i>Borrar</a>
+	        <a href="{% url 'agenda_proyecto_list' %}" class="btn btn-primary button_class center-block" role="button"><i class="fa fa-arrow-left right_space" aria-hidden="true"></i>Volver</a>
+	    </div>
+	</div>
+
+	{% if messages %}
+		{% for message in messages %}
+			{% autoescape off %}{{ message }}{% endautoescape %}
+		{% endfor %}
+	{% endif %}
+
+{% endblock %}

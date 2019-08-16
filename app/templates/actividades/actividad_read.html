@@ -1,0 +1,62 @@
+{% extends 'layouts/base_admin.html' %}
+
+{% block title %}{{actividad.titulo}}{% endblock %}
+
+{% block content %}
+
+	<h1 class="text-center">Actividades</h1>
+	<div class="space"></div>
+	
+	<div class="panel contenedor panel-primary">
+		<div class="panel-heading">{{actividad.titulo}}</div>
+		<div class="panel-body">
+			<div class="text-center">
+				<div id="titulo">
+					<b>{{actividad.titulo}}</b>
+				</div>
+				<div id="contenido">
+					<pre>{% autoescape off %}{{actividad.contenido}}{% endautoescape %}</pre>
+				</div>
+				<div class="tiny-space"></div>
+				<div id="fecha">
+					<b>Fecha : </b>
+					{{actividad.fecha|date:'d/m/Y'}}
+				</div>
+				<div class="tiny-space"></div>
+				<div id="hora">
+					<b>Hora : </b>
+					{% if actividad.hora %}
+						{{actividad.hora}}
+					{% else %}
+						Todo el día
+					{% endif %}
+				</div>
+				<div class="tiny-space"></div>
+				<div id="estado">
+					<b>Estado : </b>
+				    {% if actividad.esta_terminado %}
+				    	Actividad terminada
+				    {% else %}
+				    	Actividad en proceso
+				    {% endif %}
+				</div>
+			    <div class="tiny-space"></div>
+			</div>
+		</div>
+	</div>
+	<div class="space"></div>
+	<div class="text-center">
+	    <div class="btn-toolbar">
+	        <a href="{% url 'agenda_actividad_edit' actividad.id %}" class="btn btn-primary button_class center-block" role="button"><i class="fa fa-pencil-square-o right_space" aria-hidden="true"></i>Editar</a>
+	        <a href="{% url 'agenda_actividad_delete' actividad.id %}" class="btn btn-primary button_class center-block" role="button"><i class="fa fa-times right_space" aria-hidden="true"></i>Borrar</a>
+	        <a href="{% url 'agenda_actividad_list' %}" class="btn btn-primary button_class center-block" role="button"><i class="fa fa-arrow-left right_space" aria-hidden="true"></i>Volver</a>
+	    </div>
+	</div>
+
+	{% if messages %}
+		{% for message in messages %}
+			{% autoescape off %}{{ message }}{% endautoescape %}
+		{% endfor %}
+	{% endif %}	
+
+{% endblock %}

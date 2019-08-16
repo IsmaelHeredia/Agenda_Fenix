@@ -1,0 +1,52 @@
+{% extends 'layouts/base_admin.html' %}
+
+{% load staticfiles %}
+
+{% block title %}Actividades{% endblock %}
+
+{% block content %}
+
+	<h1 class="text-center">Actividades</h1>
+	<div class="space"></div>
+
+	<script>
+	$(document).ready(function() {
+		
+		$('#calendario').fullCalendar({
+			locale: 'es',
+			header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'month,agendaWeek,agendaDay,listWeek'
+			},
+			defaultDate: '{{fecha_actual|safe}}',
+			navLinks: true,
+			editable: false,
+			eventLimit: true,
+			events: [
+				{% for actividad in lista_actividades %}
+					{
+					{{actividad|safe}},
+					},
+				{% endfor %}
+			]
+		});
+		
+	});
+	</script>
+
+	<div id="calendario"></div>
+
+	<div class="space"></div>
+
+	<div align="center">
+	    <a href="{% url 'agenda_actividad_view' %}" class="btn btn-primary btn-block button_large" role="button"><i class="fa fa-plus right_space" aria-hidden="true"></i>Agregar nueva actividad</a>
+	</div>
+
+	{% if messages %}
+		{% for message in messages %}
+			{% autoescape off %}{{ message }}{% endautoescape %}
+		{% endfor %}
+	{% endif %}
+
+{% endblock %}

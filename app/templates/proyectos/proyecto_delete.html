@@ -1,0 +1,32 @@
+{% extends 'layouts/base_admin.html' %}
+
+{% block title %}Borrar proyecto{% endblock %}
+
+{% block content %}
+
+	<h1 class="text-center">Proyectos</h1>
+	<div class="space"></div>
+	
+	<div class="jumbotron">
+	  <form action="{% url 'agenda_proyecto_delete' proyecto.id %}" method="POST" class="form-horizontal" name="form_proyectos">
+	  	{% csrf_token %}
+        <fieldset>
+            <div class="text-center">
+                <h1>Eliminacíon</h1>
+                <p>¿Estás seguro que deseas eliminar el proyecto {{ proyecto.titulo }} ?</p>
+                <div class="btn-toolbar">
+                    <button type="submit" name="borrar_proyecto" class="btn btn-danger button_large button_class"><i class="fa fa-times right_space" aria-hidden="true"></i>Borrar</button>
+                    <a href="{% url 'agenda_proyecto_list' %}" class="btn btn-primary button_large button_link" role="button"><i class="fa fa-arrow-left right_space" aria-hidden="true"></i>Volver</a>
+                </div>
+            </div>
+        </fieldset>
+	  </form>
+	</div>
+
+	{% if messages %}
+		{% for message in messages %}
+			{% autoescape off %}{{ message }}{% endautoescape %}
+		{% endfor %}
+	{% endif %}
+
+{% endblock %}

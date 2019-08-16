@@ -1,0 +1,112 @@
+{% extends 'layouts/base_admin.html' %}
+
+{% load staticfiles %}
+
+{% block title %}Estadísticas{% endblock %}
+
+{% block content %}
+
+	<h1 class="text-center">Estadísticas : Cantidad de notas por categoria</h1>
+	<div class="space"></div>
+	<h3 class="text-center">Cantidad de notas en total : {{cantidad_notas}}</h3>
+	<div class="space">
+
+	<script type="text/javascript">
+	$(function () {
+	    $('#grafico').highcharts({
+			chart: {
+			    type: 'bar',
+			    style: {
+			        fontFamily: 'Damion',
+			        fontSize: 17
+			    },
+			    events: {
+			       load: function() {
+			           let categoryHeight = 35;
+			           this.update({
+			               chart: {
+			                   height: categoryHeight * this.pointCount + (this.chartHeight - this.plotHeight)
+			               }
+			            })
+			        }
+			    }
+			},
+	        title: {
+	        	text: '',
+		        style: {
+		            fontSize : 25
+		        }
+	        },
+	        xAxis: {
+	            categories: {% autoescape off %}{{textos_grafico}}{% endautoescape %},
+	            labels: {
+	                style: {
+	                	fontSize : 17
+	                }
+	            },
+	            title: {
+	            	text: 'Categorias'
+	            }
+	        },	                
+	        yAxis: {
+	            min: 0,
+	            title: {
+	                text: 'Notas',
+	                align: 'high'
+	            },
+	            labels: {
+	                style: {
+	                	fontSize : 17
+	                },
+	                overflow: 'justify'
+	            }
+	        },
+	        tooltip: {
+		        useHTML: true,
+		        style: {
+		            fontSize : 17
+		        },
+		        formatter: function() {
+		            return 'Cantidad de notas: '+this.point.y;
+		        }
+	        },
+		    plotOptions: {
+		        pie: {
+		            allowPointSelect: true,
+		            cursor: 'pointer',
+		            dataLabels: {
+		                enabled: true,
+		                format: '<b>{point.name}</b>: {point.y}',
+		                style: {
+		                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black',
+		                    fontSize: 17
+		                }
+		            }
+		        }
+		    },
+	        legend: {
+	            reversed: true,
+		        itemStyle: {
+		            fontSize : 17
+		        }
+	        },
+	        credits: {
+	            enabled: false
+	        },
+	        series: [{
+		        name:'Notas',
+		        data: {% autoescape off %}{{series_grafico}}{% endautoescape %}
+			}],
+	        navigation: {
+	            menuItemStyle: {
+		            fontSize : 12
+	            }
+	        }
+	    });
+	});
+
+	</script> 
+
+	<div id="grafico"></div>
+
+{% endblock %}

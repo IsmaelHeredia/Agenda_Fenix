@@ -1,0 +1,32 @@
+{% extends 'layouts/base_admin.html' %}
+
+{% block title %}Borrar nota{% endblock %}
+
+{% block content %}
+
+	<h1 class="text-center">Notas</h1>
+	<div class="space"></div>
+	
+	<div class="jumbotron">
+	  <form action="{% url 'agenda_nota_delete' nota.id %}" method="POST" class="form-horizontal" name="form_notas">
+	  	{% csrf_token %}
+        <fieldset>
+            <div class="text-center">
+                <h1>Eliminacíon</h1>
+                <p>¿Estás seguro que deseas eliminar la nota {{ nota.titulo }} ?</p>
+                <div class="btn-toolbar">
+                    <button type="submit" name="borrar_nota" class="btn btn-danger button_large button_class"><i class="fa fa-times right_space" aria-hidden="true"></i>Borrar</button>
+                    <a href="{% url 'agenda_nota_list' %}" class="btn btn-primary button_large button_link" role="button"><i class="fa fa-arrow-left right_space" aria-hidden="true"></i>Volver</a>
+                </div>
+            </div>
+        </fieldset>
+	  </form>
+	</div>
+
+	{% if messages %}
+		{% for message in messages %}
+			{% autoescape off %}{{ message }}{% endautoescape %}
+		{% endfor %}
+	{% endif %}
+
+{% endblock %}

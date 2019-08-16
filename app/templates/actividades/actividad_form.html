@@ -1,0 +1,120 @@
+{% extends 'layouts/base_admin.html' %}
+
+{% block title %}
+	{% if actividad.titulo %}
+		{{actividad.titulo}}
+	{% else %}
+		Agregar actividad
+	{% endif %}
+{% endblock %}
+
+{% block content %}
+
+	<h1 class="text-center">Actividades</h1>
+	<div class="space"></div>
+	
+	<div class="panel contenedor panel-primary">
+	{% if nuevo %}
+		<div class="panel-heading">Agregar actividad</div>
+	{% else %}
+		<div class="panel-heading">Editando la actividad {{actividad.titulo}}</div>
+	{% endif %}
+	<div class="panel-body">
+	{% if nuevo %}
+		<form action="{% url 'agenda_actividad_view' %}" method="POST" id="actividadForm" class="form-horizontal">
+    {% else %}
+    	<form action="{% url 'agenda_actividad_edit' actividad.id %}" method="POST" id="actividadForm" class="form-horizontal">
+    {% endif %}
+	  {% csrf_token %}
+	  <fieldset>
+		<legend>Datos</legend>
+	    <div class="form-group" name="form-group-titulo">
+	      <label for="inputTitulo" class="col-lg-2 control-label">{{form.titulo.label}}</label>
+	      <div class="col-lg-10">
+	        {{form.titulo}}
+	      </div>
+	    </div>
+	    <div class="form-group" name="form-group-contenido">
+			<label for="inputContenido" class="col-lg-2 control-label">{{form.contenido.label}}</label>
+			<div class="col-lg-10">
+				{{form.contenido}}
+				<div class="tiny-space"></div>
+				<div class="text-center">
+					<div class="btn-toolbar">
+						<div class="col-md-3">
+		    				<a class="btn btn-info herramienta" name="agregar_centrar" role="button" data-toggle="tooltip" title="Centrar"><i class="fa fa-align-center" aria-hidden="true"></i></a>									
+						</div>
+						<div class="col-md-3">
+		    				<a class="btn btn-info herramienta" name="agregar_negrita" role="button" data-toggle="tooltip" title="Agregar negrita"><i class="fa fa-bold" aria-hidden="true"></i></a>								
+						</div>
+		    			<div class="col-md-3">
+		    				<a class="btn btn-info herramienta" name="agregar_url" role="button" data-toggle="tooltip" title="Agregar URL"><i class="fa fa-link" aria-hidden="true"></i></a>			  	
+		    			</div>
+		    			<div class="col-md-3">
+		    				<a class="btn btn-info herramienta" name="agregar_imagen" role="button" data-toggle="tooltip" title="Agregar imagen"><i class="fa fa-picture-o" aria-hidden="true"></i></a>
+		    			</div>
+		    			<div class="col-md-3">
+		    				<a class="btn btn-info herramienta" name="agregar_video" role="button" data-toggle="tooltip" title="Agregar video"><i class="fa fa-video-camera" aria-hidden="true"></i></a>
+		    			</div>
+		    			<div class="col-md-3">
+		    				<a class="btn btn-info herramienta" name="agregar_lista" role="button" data-toggle="tooltip" title="Agregar lista"><i class="fa fa-list-ul" aria-hidden="true"></i></a>
+		    			</div>
+		    			<div class="col-md-3">
+		    				<a class="btn btn-info herramienta" name="agregar_estado" role="button" data-toggle="tooltip" title="Agregar estado"><i class="fa fa-th-list" aria-hidden="true"></i></a>
+		    			</div>
+		    			<div class="col-md-3">
+		    				<a class="btn btn-info herramienta" name="mostrar_comandos" role="button" data-toggle="tooltip" title="Mostrar comandos"><i class="fa fa-info" aria-hidden="true"></i></a>
+		    			</div>
+					</div>
+				</div>
+			</div>
+	    	<div class="tiny-space"></div>
+	    </div>
+	    <div class="form-group" name="form-group-fecha">
+	      <label for="inputFecha" class="col-lg-2 control-label">{{form.fecha.label}}</label>
+	      <div class="col-lg-10">
+          	<div class="input-group input-append date" id="dpFecha">
+	          	<span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
+	          	<input type="text" name="{{form.fecha.name}}" class="form-control" placeholder="Seleccione fecha" value="{{form.fecha.value|date:'d/m/Y'}}">
+	    	</div>
+	      </div>
+	    </div>
+	    <div class="form-group" name="form-group-hora">
+	      <label for="inputHora" class="col-lg-2 control-label">{{form.hora.label}}</label>
+	      <div class="col-lg-10">
+	      	<div class="input-group clockpicker col-md-5" data-align="top" data-autoclose="true">
+	        	{{form.hora}}
+			    <span class="input-group-addon">
+			        <span class="glyphicon glyphicon-time"></span>
+			    </span>
+	    	</div>
+	      </div>
+	    </div>
+	    <div class="form-group" name="form-group-terminado">
+	      <label for="inputTerminado" class="col-lg-2 control-label">Estado</label>
+	      <div class="col-lg-10">
+	        {{form.esta_terminado}} Terminado
+	      </div>
+	    </div>
+        <div class="text-center">
+            <div class="btn-toolbar">
+				{% if nuevo %}
+					<button type="submit" class="btn btn-primary button_class center-block" name="agregar_actividad"><i class="fa fa-plus right_space" aria-hidden="true"></i>Agregar</button>
+				{% else %}
+					<button type="submit" class="btn btn-primary button_class center-block" name="editar_actividad"><i class="fa fa-pencil-square-o right_space" aria-hidden="true"></i>Editar</button>
+				{% endif %}
+                <a href="{% url 'agenda_actividad_list' %}" class="btn btn-primary button_class center-block" role="button"><i class="fa fa-arrow-left right_space" aria-hidden="true"></i>Volver</a>
+            </div>
+        </div>
+	  </fieldset>
+	</form>        
+	</div>
+	</div>
+
+	{% if messages %}
+		{% for message in messages %}
+			{% autoescape off %}{{ message }}{% endautoescape %}
+		{% endfor %}
+	{% endif %}
+
+{% endblock %}

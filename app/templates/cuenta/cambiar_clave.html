@@ -1,0 +1,49 @@
+{% extends 'layouts/base_admin.html' %}
+
+{% block title %}Cambiar Clave{% endblock %}
+
+{% block content %}
+
+	<h1 class="text-center">Cuenta</h1>
+	<div class="space"></div>
+	
+	<div class="panel cuenta panel-primary">
+	<div class="panel-heading">Cambiar Clave</div>
+	<div class="panel-body">
+	  <form action="{% url 'agenda_cambiar_clave' %}" method="POST" id="cambiarClaveForm" class="form-horizontal">
+	  	{% csrf_token %}
+	    <fieldset>
+	      <legend>Datos</legend>
+	      <div class="form-group" name="form-group-usuario">
+	        <label for="inputNombre" class="col-lg-2 control-label">{{form.usuario.label}}</label>
+	        <div class="col-lg-10">
+	          {{form.usuario}}
+	        </div>
+	      </div>
+	      <div class="form-group" name="form-group-anterior-clave">
+	        <label for="inputActual" class="col-lg-2 control-label">{{form.clave.label}}</label>
+	        <div class="col-lg-10">
+	          {{form.clave}}
+	        </div>
+	      </div>
+	      <div class="form-group" name="form-group-nueva-clave">
+	        <label for="inputActual" class="col-lg-2 control-label">{{form.nueva_clave.label}}</label>
+	        <div class="col-lg-10">
+	          {{form.nueva_clave}}
+	        </div>
+	      </div>
+	      <div class="form-group">
+	          <button type="submit" class="btn btn-primary center-block" name="cambiar" id="cambiar"><i class="fa fa-pencil-square-o right_space" aria-hidden="true"></i>Realizar cambio</button>
+	      </div>
+	    </fieldset>
+	  </form>        
+	</div>
+	</div>
+
+	{% if messages %}
+		{% for message in messages %}
+			{% autoescape off %}{{ message }}{% endautoescape %}
+		{% endfor %}
+	{% endif %}
+
+{% endblock %}

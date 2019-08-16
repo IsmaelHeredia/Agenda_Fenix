@@ -1,0 +1,45 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}Instalar{% endblock %}
+
+{% block content %}
+
+  <h1 class="text-center">Instalar Agenda Fénix</h1>
+  <div class="space"></div>
+
+  <div class="panel instalar panel-primary">
+    <div class="panel-heading">Crear usuario</div>
+      <div class="panel-body">
+          <form action="{% url 'agenda_instalar' %}" method="POST" class="form-horizontal" id="instalarForm">
+            {% csrf_token %}
+            <fieldset>
+              <legend>Datos</legend>
+              <div class="form-group" name="form-group-usuario">
+                <label for="inputTexto1" class="col-lg-2 control-label">{{form.nombre.label}}</label>
+                <div class="col-lg-10">
+                  {{form.nombre}}
+                </div>
+              </div>
+              <div class="form-group" name="form-group-clave">
+                <label for="inputTexto2" class="col-lg-2 control-label">{{form.clave.label}}</label>
+                <div class="col-lg-10">
+                  {{form.clave}}
+                </div>
+              </div>
+              <div class="form-group">
+                  <div class="col-md-4 col-md-offset-4">
+                      <button type="submit" name="registrar" id="registrar" class="btn btn-primary btn-block">Registrar</button>
+                  </div>
+              </div>
+            </fieldset>
+          </form>
+    </div>
+  </div>
+
+  {% if messages %}
+    {% for message in messages %}
+      {% autoescape off %}{{ message }}{% endautoescape %}
+    {% endfor %}
+  {% endif %}
+
+{% endblock %}
