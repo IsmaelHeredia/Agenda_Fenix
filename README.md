@@ -1,4 +1,4 @@
-Agenda Fenix2
+Agenda Fenix
 ================
 
 Este proyecto es una agenda que hice en Python-Django que guarda todo en una base de datos SQLite.
@@ -13,6 +13,7 @@ Funciones :
 - Importar y exportar datos
 - Muestra gráfico estadístico de cantidad de notas por categoria
 - Cambiar usuario y clave de la cuenta
+- Se incorporo en la version 1.1 la opcion de usar dos skins diferentes para la agenda
 
 Cuando se importan datos se necesita seguir los siguientes pasos ...
 
@@ -53,3 +54,9 @@ Imágenes :
 ![screenshot](https://camo.githubusercontent.com/2a27602128eb873a73c39ae856b6aff6e06a246e/68747470733a2f2f312e62702e626c6f6773706f742e636f6d2f2d424f5866737469736933492f576f696b5248686e444f492f41414141414141414146732f594a57563447664467326b6f76764f624f58484f786a3248675a49536a514a6d77434577594268674c2f733634302f6167656e646166656e69783130322e6a7067)
 
 ![screenshot](https://camo.githubusercontent.com/8c7bce1682d36ce56cc9954539f5f75c0d91b83e/68747470733a2f2f312e62702e626c6f6773706f742e636f6d2f2d4c32694d753630737068672f576f696b526176786637492f41414141414141414146302f36343452374a35504f6a5957665032614836474f463236712d614e666143586c77434577594268674c2f733634302f6167656e646166656e69783130332e6a7067)
+
+Despues de la actualizacion 1.1, la agenda se ve asi :
+
+![screenshot](https://1.bp.blogspot.com/-3iBtQO5TIe4/XVmt16uHAmI/AAAAAAAAAlQ/76d5dDE7QZ43LwaPCmbmINTn0UnPie15gCLcBGAs/s1600/17-8-2019%2B10.8.10%2B1.jpg)
+
+![screenshot](https://1.bp.blogspot.com/-1dlJb5Bm6Mk/XVmt2Lj9FvI/AAAAAAAAAlU/OmFm4jmB6HwTSyp4qSLamAj3Et2WjhZqgCLcBGAs/s1600/17-8-2019%2B10.8.13%2B3.jpg)
