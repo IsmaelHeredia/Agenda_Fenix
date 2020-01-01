@@ -1,4 +1,4 @@
-# Written By Ismael Heredia in the year 2018
+# Written By Ismael Heredia in the year 2020
 
 from django.shortcuts import render,redirect,get_object_or_404
 from django.http import HttpResponse
@@ -21,12 +21,12 @@ def agenda_instalar(request):
             password_encoded = function.md5_encode(obj.clave)
             obj.clave = password_encoded
             obj.save()
-            message_text = function.mensaje("Instalación","Usuario registrado","success")
+            message_text = "Usuario registrado"
             messages.add_message(request, messages.SUCCESS,message_text)
             return redirect("agenda_ingreso")
         else:
-            message_text = function.mensaje("Instalación","Datos inválidos","warning")
-            messages.add_message(request, messages.SUCCESS,message_text)
+            message_text = "Datos inválidos"
+            messages.add_message(request, messages.WARNING,message_text)
             return redirect("agenda_instalar")            
     else:
         return render(request, 'instalar/index.html', {'form':UsuarioForm()})

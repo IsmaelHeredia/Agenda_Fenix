@@ -1,4 +1,4 @@
-# Written By Ismael Heredia in the year 2018
+# Written By Ismael Heredia in the year 2020
 
 from django.shortcuts import render,redirect,get_object_or_404
 from django.http import HttpResponse
@@ -22,7 +22,7 @@ def agenda_cambiar_usuario(request):
                 clave = function.md5_encode(data['clave'])
                 if service.ingreso_usuario(nombre_usuario,clave):
                     if service.comprobar_existencia_usuario_crear(nuevo_usuario):
-                        message_text = function.mensaje("Usuarios","El usuario "+nombre_usuario+" ya existe","warning")
+                        message_text = "El usuario %s ya existe" % (nombre_usuario,)
                         messages.add_message(request, messages.SUCCESS,message_text)
                         return redirect('agenda_cambiar_usuario')
                     else:
@@ -30,12 +30,12 @@ def agenda_cambiar_usuario(request):
                         usuario.nombre = nuevo_usuario
                         usuario.save()
                         del request.session['user_login']
-                        message_text = function.mensaje("Cambiar Usuario","El usuario ha sido cambiado exitosamente, reinicie la aplicación","success")
+                        message_text = "El usuario ha sido cambiado exitosamente, reinicie la aplicación"
                         messages.add_message(request, messages.SUCCESS,message_text)
                         return redirect('agenda_ingreso')
                 else:
-                    message_text = function.mensaje("Cambiar Usuario","Ingreso inválido","warning")
-                    messages.add_message(request, messages.SUCCESS,message_text)
+                    message_text = "Ingreso inválido"
+                    messages.add_message(request, messages.WARNING,message_text)
                     return redirect('agenda_cambiar_usuario')
 
         else:
@@ -59,12 +59,12 @@ def agenda_cambiar_clave(request):
                     usuario.clave = nueva_clave
                     usuario.save()
                     del request.session['user_login']
-                    message_text = function.mensaje("Cambiar Clave","La clave ha sido cambiada exitosamente, reinicie la aplicación","success")
+                    message_text = "La clave ha sido cambiada exitosamente, reinicie la aplicación"
                     messages.add_message(request, messages.SUCCESS,message_text)
                     return redirect('agenda_ingreso')
                 else:
-                    message_text = function.mensaje("Cambiar Clave","Ingreso inválido","warning")
-                    messages.add_message(request, messages.SUCCESS,message_text)
+                    message_text ="Ingreso inválido"
+                    messages.add_message(request, messages.WARNING,message_text)
                     return redirect('agenda_cambiar_clave')
 
         else:

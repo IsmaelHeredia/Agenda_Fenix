@@ -1,4 +1,4 @@
-# Written By Ismael Heredia in the year 2018
+# Written By Ismael Heredia in the year 2020
 
 from django.shortcuts import render,redirect,get_object_or_404
 from django.core.urlresolvers import reverse
@@ -10,16 +10,21 @@ from app.functions import Function
 from app.forms import ActividadForm
 from django.core import serializers
 from django.http import HttpResponse
+import json
+from datetime import datetime
+from django.utils.dateformat import DateFormat
 
 service = Service()
 function = Function()
 
-def agenda_actividad_list(request):
+def agenda_actividad_list_json(request):
     if service.validar_session(request):  
         usuario_logeado = service.recibirUsuarioEnSesion(request)
-        actividades = service.listarActividades('')
+        actividades = Actividad.objects.all()
         fecha_actual = function.getFechaActualCalendario()
-        lista_actividades = []
+        json_pro = {}
+        json_pro["fecha_actual"] = fecha_actual
+        listas = []
         for actividad in actividades:
             id = actividad.id
             titulo = actividad.titulo
@@ -36,8 +41,17 @@ def agenda_actividad_list(request):
                 color = "#3A87AD"
             else:
                 color = "#F04124"
-            lista_actividades.append("title:'"+titulo+"',start:'"+fecha_hora+"',url:'"+url+"',backgroundColor:'"+color+"',borderColor:'"+color+"'")
-        return render(request, 'actividades/actividad_list.html', {'usuario_logeado':usuario_logeado,'actividades':actividades,'lista_actividades':lista_actividades,"fecha_actual":fecha_actual})
+            listas.append({"title":titulo, "start":fecha_hora, "url":url, "backgroundColor":color, "borderColor":color})
+        json_pro["actividades"] = listas
+        json_lista = json.dumps(json_pro)
+        return HttpResponse(json_lista, content_type='application/json')
+    else:
+        return redirect('agenda_ingreso')
+
+def agenda_actividad_list(request):
+    if service.validar_session(request):  
+        usuario_logeado = service.recibirUsuarioEnSesion(request)
+        return render(request, 'actividades/actividad_list.html', {'usuario_logeado':usuario_logeado})
     else:
         return redirect('agenda_ingreso')
 
@@ -51,17 +65,17 @@ def agenda_actividad_view(request):
                 titulo = data['titulo']     
                 fecha = data['fecha']        
                 if service.comprobar_existencia_actividad_crear(titulo,fecha):
-                    message_text = function.mensaje("Actividades","La actividad "+titulo+" ya existe","warning")
-                    messages.add_message(request, messages.SUCCESS,message_text)
+                    message_text = "La actividad %s ya existe" % (titulo,)
+                    messages.add_message(request, messages.WARNING,message_text)
                     return redirect("agenda_actividad_view")
                 else:
                     form.save()
-                    message_text = function.mensaje("Actividades","Actividad registrada","success")
+                    message_text = "Actividad registrada"
                     messages.add_message(request, messages.SUCCESS,message_text)
                     return redirect("agenda_actividad_list")
             else:
-                message_text = function.mensaje("Actividades","Faltan datos","warning")
-                messages.add_message(request, messages.SUCCESS,message_text)
+                message_text = "Faltan datos"
+                messages.add_message(request, messages.WARNING,message_text)
                 return redirect("agenda_actividad_view")
         else:
             return render(request, 'actividades/actividad_form.html', {'usuario_logeado':usuario_logeado,'form':ActividadForm(),'nuevo':True})
@@ -94,17 +108,17 @@ def agenda_actividad_edit(request,id_actividad):
                 titulo = data['titulo']
                 fecha = data['fecha']
                 if service.comprobar_existencia_actividad_editar(id_actividad,titulo,fecha):
-                    message_text = function.mensaje("Notas","La actividad "+titulo+" ya existe","warning")
-                    messages.add_message(request, messages.SUCCESS,message_text)
+                    message_text = "La actividad %s ya existe" % (titulo,)
+                    messages.add_message(request, messages.WARNING,message_text)
                     return redirect("agenda_actividad_edit",id_actividad)
                 else:
                     form.save()
-                    message_text = function.mensaje("Actividades","Actividad editada","success")
+                    message_text = "Actividad editada"
                     messages.add_message(request, messages.SUCCESS,message_text)
                     return redirect("agenda_actividad_read",id_actividad)
             else:
-                message_text = function.mensaje("Actividades","Faltan datos","warning")
-                messages.add_message(request, messages.SUCCESS,message_text)  
+                message_text = "Faltan datos"
+                messages.add_message(request, messages.WARNING,message_text)  
                 return redirect("agenda_actividad_edit",id_actividad)    
         return render(request,'actividades/actividad_form.html',{'usuario_logeado':usuario_logeado,'form':form,'actividad':actividad})
     else:
@@ -117,7 +131,7 @@ def agenda_actividad_delete(request,id_actividad):
         if request.method == 'POST':
             if 'borrar_actividad' in request.POST:
                 actividad.delete()
-                message_text = function.mensaje("Actividades","Actividad borrada","success")
+                message_text = "Actividad borrada"
                 messages.add_message(request, messages.SUCCESS,message_text)
                 return redirect('agenda_actividad_list')
             elif 'volver_lista' in request.POST:

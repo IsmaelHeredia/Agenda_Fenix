@@ -12,7 +12,6 @@
 
 	<div class="espacio"></div>
 
-	{% if categorias %}
     <table id="tabla_categorias" class="table table-striped table-bordered" width="100%" cellspacing="0">
         <thead>
             <tr>
@@ -20,26 +19,57 @@
                 <th>Opción</th>
             </tr>
         </thead>
-        <tbody>
-			{% for categoria in categorias %}
-			  <tr>
-				<td><a class="link-tabla" href="{% url 'agenda_categoria_edit' categoria.id %}">{{categoria.nombre}}</a></td>
-				<td>
-					<a href="{% url 'agenda_categoria_edit' categoria.id %}"><img data-toggle="tooltip" src="{% static 'images/edit.png' %}" title="Editar"></a>
-					<a href="{% url 'agenda_categoria_delete' categoria.id %}"><img data-toggle="tooltip" src="{% static 'images/delete.png' %}" title="Borrar"></a>
-				</td>
-			  </tr>
-			{% endfor %}
-        </tbody>
     </table>
-	{% else %}
-		<h3 class="text-center">No se encontraron categorias</h3>
-	{% endif %}		
 
 	<div class="espacio"></div>
 
 	<div align="center">
 	    <a href="{% url 'agenda_categoria_view' %}" class="btn btn-primary boton-extra-largo" role="button"><i class="fa fa-plus espacio-icono" aria-hidden="true"></i>Agregar nueva categoria</a>
 	</div>
+
+    <script>
+        $(document).ready(function() {
+            $('#tabla_categorias').DataTable({
+                "processing": true,
+                "ajax": "/administracion/categorias/cargarJson",
+                "columns" : [
+                    { "data": "nombre", "name": "nombre",
+                        fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                            $(nTd).html("<a class='link-tabla' href='/administracion/categorias/leer/"+oData.id+"'>"+oData.nombre+"</a>");
+                        }
+                    },
+                    { "data": "id", "name": "id",
+                        fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                            $(nTd).html("<a href='/administracion/categorias/editar/"+oData.id+"'><img data-toggle='tooltip' src='/static/images/edit.png' title='Editar'></a> <a href='/administracion/categorias/borrar/"+oData.id+"'><img data-toggle='tooltip' src='/static/images/delete.png' title='Borrar'></a>");
+                        }
+                    },
+                ],
+                "language": {
+                    "decimal": "",
+                    "emptyTable": "No se encontraron datos",
+                    "info": "Mostrando _START_ de _END_ a _TOTAL_ entradas",
+                    "infoEmpty": "Mostrando 0 hasta 0 of 0 entradas",
+                    "infoFiltered": "(filtrando de _MAX_ entradas totales)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "lengthMenu": "Mostrando _MENU_ entradas",
+                    "loadingRecords": "Cargando ...",
+                    "processing": "",
+                    "search": "Buscar:",
+                    "zeroRecords": "No se encontraron datos",
+                    "paginate": {
+                        "first": "Primero",
+                        "last": "Ultimo",
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    },
+                    "aria": {
+                        "sortAscending": ": activar para ordenar la columna ascendentemente",
+                        "sortDescending": ": activar para ordenar la columna descendentemente"
+                    }
+                }            
+            });
+       });
+    </script>
 
 {% endblock %}

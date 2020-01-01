@@ -1,4 +1,4 @@
-# Written By Ismael Heredia in the year 2018
+# Written By Ismael Heredia in the year 2020
 
 import base64,hashlib,os,sys,time,datetime,time,re
 from time import gmtime, strftime

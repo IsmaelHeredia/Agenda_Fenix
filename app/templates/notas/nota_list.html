@@ -12,7 +12,6 @@
 
 	<div class="espacio"></div>
 
-	{% if notas %}
     <table id="tabla_notas" class="table table-striped table-bordered" width="100%" cellspacing="0">
         <thead>
             <tr>
@@ -22,29 +21,64 @@
                 <th>Opción</th>
             </tr>
         </thead>
-        <tbody>
-			{% for nota in notas %}
-			  <tr>
-				<td><a class="link-tabla" href="{% url 'agenda_nota_read' nota.id %}">{{ nota.titulo }}</a></td>
-				<td>{{ nota.categoria.nombre }}</td>
-				<td><span class="hide">{{ nota.fecha_registro|date:'YmdHi' }}</span>{{ nota.fecha_registro|date:'d/m/Y H:i' }}</td>
-				<td>
-					<a href="{% url 'agenda_nota_read' nota.id %}"><img data-toggle="tooltip" src="{% static 'images/read.png' %}" title="Leer"></a>
-					<a href="{% url 'agenda_nota_edit' nota.id %}"><img data-toggle="tooltip" src="{% static 'images/edit.png' %}" title="Editar"></a>
-					<a href="{% url 'agenda_nota_delete' nota.id %}"><img data-toggle="tooltip" src="{% static 'images/delete.png' %}" title="Borrar"></a>
-				</td>
-			  </tr>
-			{% endfor %}
-        </tbody>
     </table>
-	{% else %}
-		<h3 class="text-center">No se encontraron notas</h3>
-	{% endif %}		
 
 	<div class="espacio"></div>
 
 	<div align="center">
 	    <a href="{% url 'agenda_nota_view' %}" class="btn btn-primary boton-extra-largo" role="button"><i class="fa fa-plus espacio-icono" aria-hidden="true"></i>Agregar nueva nota</a>
 	</div>
+
+    <script>
+        $(document).ready(function() {
+            $('#tabla_notas').DataTable({
+                "processing": true,
+                "ajax": "/administracion/notas/cargarJson",
+                "columns" : [
+                    { "data": "titulo", "name": "titulo",
+                        fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                            $(nTd).html("<a class='link-tabla' href='/administracion/notas/leer/"+oData.id+"'>"+oData.titulo+"</a>");
+                        }
+                    },
+                    { "data": "categoria"},
+                    { "data": "fecha_registro_corta", "name": "fecha_registro_corta",
+                        fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                            $(nTd).html("<span class='hide'>"+oData.fecha_registro_corta+"</span>"+oData.fecha_registro_normal);
+                        }
+                    },
+                    { "data": "id", "name": "id",
+                        fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                            $(nTd).html("<a href='/administracion/notas/editar/"+oData.id+"'><img data-toggle='tooltip' src='/static/images/edit.png' title='Editar'></a> <a href='/administracion/notas/borrar/"+oData.id+"'><img data-toggle='tooltip' src='/static/images/delete.png' title='Borrar'></a>");
+                        }
+                    },
+                ],
+                "language": {
+                    "decimal": "",
+                    "emptyTable": "No se encontraron datos",
+                    "info": "Mostrando _START_ de _END_ a _TOTAL_ entradas",
+                    "infoEmpty": "Mostrando 0 hasta 0 of 0 entradas",
+                    "infoFiltered": "(filtrando de _MAX_ entradas totales)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "lengthMenu": "Mostrando _MENU_ entradas",
+                    "loadingRecords": "Cargando ...",
+                    "processing": "",
+                    "search": "Buscar:",
+                    "zeroRecords": "No se encontraron datos",
+                    "paginate": {
+                        "first": "Primero",
+                        "last": "Ultimo",
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    },
+                    "aria": {
+                        "sortAscending": ": activar para ordenar la columna ascendentemente",
+                        "sortDescending": ": activar para ordenar la columna descendentemente"
+                    }
+                },
+                "aaSorting": [2,"desc"]
+            });
+       });
+    </script>
 
 {% endblock %}

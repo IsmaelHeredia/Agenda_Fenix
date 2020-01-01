@@ -11,8 +11,10 @@
     <!-- Bootstrap -->
 
     <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" />
+    
+    <link href="{% static 'css/jquery.dataTables.min.css' %}" rel="stylesheet">
+    
     <link href="{% static 'dist/sweetalert.css' %}" rel="stylesheet" />
-    <link href="{% static 'css/dataTables.bootstrap4.min.css' %}" rel="stylesheet" />
     <link href="{% static 'font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" />
 
     <link href="{% static 'css/fullcalendar.min.css' %}" rel="stylesheet" />
@@ -27,7 +29,7 @@
     {% endif %}
     
     <script src="{% static 'js/moment.js' %}" charset="UTF-8"></script>
-    <script src="{% static 'js/jquery-3.2.1.js' %}" charset="UTF-8"></script>
+    <script src="{% static 'js/jquery-3.3.1.js' %}" charset="UTF-8"></script>
     <script src="{% static 'js/popper.js' %}" charset="UTF-8"></script>
     <script src="{% static 'bootstrap/js/bootstrap.js' %}" charset="UTF-8"></script>
 
@@ -37,11 +39,16 @@
     <script src="{% static 'js/fullcalendar.min.js' %}" charset="UTF-8"></script>
     <script src="{% static 'js/locale-all.js' %}" charset="UTF-8"></script>
 
+    <script src="{% static 'js/jquery.dataTables.min.js' %}" charset="UTF-8"></script>
+    <script src="{% static 'js/dataTables.bootstrap4.min.js' %}" charset="UTF-8"></script>
+
+    <!--
+    -->
+
     <script src="{% static 'dist/sweetalert-dev.js' %}" charset="UTF-8"></script>
     <script src="{% static 'js/highcharts.js' %}" charset="UTF-8"></script>
     <script src="{% static 'js/exporting.js' %}" charset="UTF-8"></script>
-    <script src="{% static 'js/jquery.dataTables.min.js' %}" charset="UTF-8"></script>
-    <script src="{% static 'js/dataTables.bootstrap4.min.js' %}" charset="UTF-8"></script>
+
     <script src="{% static 'js/app-admin.js' %}" charset="UTF-8"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -56,7 +63,7 @@
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <a class="navbar-brand" href="#">Agenda Fénix 1.1</a>
+            <a class="navbar-brand" href="#">Agenda Fénix 1.2</a>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
@@ -100,19 +107,22 @@
             </div>
         </nav>     
         <section>
-          <div class="container-fluid">
+          <div class="container-fluid" style="margin-top: 100px">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert {{ message.tags }} alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}   
             {% block content %}
             {% endblock %}
           </div>
-        </section>
-        {% if messages %}
-           {% for message in messages %}
-             {% autoescape off %}{{ message }}{% endautoescape %}
-           {% endfor %}
-        {% endif %}        
+        </section>    
         <footer>
             <div class="container text-center">
-                <p>Copyright &copy; Ismael Heredia 2018 &middot; All Rights Reserved &middot;</p>
+                <p>Copyright &copy; Ismael Heredia 2020 &middot; All Rights Reserved &middot;</p>
             </div>
         </footer>
     </body>

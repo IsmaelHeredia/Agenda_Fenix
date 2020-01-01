@@ -1,4 +1,4 @@
-# Written By Ismael Heredia in the year 2017
+# Written By Ismael Heredia in the year 2020
 
 from django import forms
 
@@ -99,6 +99,8 @@ class CategoriaForm(forms.ModelForm):
         widgets = {
             'nombre':forms.TextInput(attrs={'class':'form-control','placeholder':'Ingrese nombre de categoria','autocomplete':'off','autocorrect':'off','spellcheck':'false'}),
         }
+
+        ordering = ['nombre']
 
 class NotaForm(forms.ModelForm):
 

@@ -73,7 +73,12 @@ b {
 .ingreso {
   margin-left: 30%;
   margin-right: 30%;
-  margin-top: 10%;
+  margin-top: 5%;
+}
+
+.contenedor {
+  margin-left: 20%;
+  margin-right: 20%;
 }
 
 .cuenta {
@@ -84,17 +89,6 @@ b {
 .instalar {
   margin-left: 30%;
   margin-right: 30%;
-}
-
-.ingreso {
-    margin-left: 25%;
-    margin-right: 25%;
-    margin-top: 10%;
-}
-
-.contenedor {
-    margin-left: 20%;
-    margin-right: 20%;
 }
 
 .card-header {
@@ -135,7 +129,6 @@ b {
 }
 
 .titulo {
-    margin-top: 5em;
     margin-bottom: 1em;
     text-align:center;
 }

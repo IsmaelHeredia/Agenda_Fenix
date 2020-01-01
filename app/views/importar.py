@@ -1,4 +1,4 @@
-# Written By Ismael Heredia in the year 2018
+# Written By Ismael Heredia in the year 2020
 
 from django.shortcuts import render,redirect,get_object_or_404
 from django.http import HttpResponse
@@ -21,10 +21,12 @@ def agenda_importar(request):
                 directorio = data['directorio']
                 message_text = ""
                 if service.importar_datos(directorio):
-                    message_text = function.mensaje("Importar","Datos importados","success")
+                    message_text = "Datos importados"
+                    messages.add_message(request, messages.SUCCESS,message_text)
                 else:
-                    message_text = function.mensaje("Importar","Ha ocurrido un error en la importación","error")
-                messages.add_message(request, messages.SUCCESS,message_text)
+                    message_text = "Ha ocurrido un error en la importación"
+                    messages.add_message(request, messages.ERROR,message_text)
+                
                 return render(request, 'importar/index.html', {'usuario_logeado':usuario_logeado,'form':ImportarForm()})
         else:
             return render(request, 'importar/index.html', {'usuario_logeado':usuario_logeado,'form':ImportarForm()})

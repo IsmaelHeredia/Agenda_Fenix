@@ -21,7 +21,7 @@
         <link id="theme" href="{% static 'css/style_sketchy.css' %}" rel="stylesheet" />
     {% endif %}
     
-    <script src="{% static 'js/jquery-3.2.1.js' %}"></script>
+    <script src="{% static 'js/jquery-3.3.1.js' %}"></script>
     <script src="{% static 'js/popper.js' %}" charset="UTF-8"></script>
     <script src="{% static 'bootstrap/js/bootstrap.js' %}"></script>
     <script src="{% static 'dist/sweetalert-dev.js' %}"></script>
@@ -35,14 +35,17 @@
         <![endif]-->
     </head>
     <body>
-        <section class="container-fluid">
+        <section class="container-fluid" style="margin-top: 50px">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert {{ message.tags }} alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}      
             {% block content %}
             {% endblock %}
         </section>
-        {% if messages %}
-          {% for message in messages %}
-            {% autoescape off %}{{ message }}{% endautoescape %}
-          {% endfor %}
-        {% endif %}        
     </body>
 </html>

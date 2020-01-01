@@ -1,4 +1,4 @@
-# Written By Ismael Heredia in the year 2018
+# Written By Ismael Heredia in the year 2020
 
 from django.shortcuts import render,redirect,get_object_or_404
 from django.http import HttpResponse
@@ -25,23 +25,21 @@ def agenda_ingreso(request):
                     username = data['usuario']
                     password = function.md5_encode(data['clave'])
                     if service.ingreso_usuario(username,password):
-                        message_text = function.mensaje("Ingreso","Bienvenido a la administración "+username,"success")
-                        messages.add_message(request, messages.SUCCESS,message_text)
                         request.session['user_login'] = service.generarSesion(username,password)
                         return redirect('agenda_administracion')
                     else:
-                        message_text = function.mensaje("Ingreso","Ingreso inválido","warning")
-                        messages.add_message(request, messages.SUCCESS,message_text)
+                        message_text = "Ingreso inválido"
+                        messages.add_message(request, messages.WARNING,message_text)
                         return redirect('agenda_ingreso')
                 else:
-                    message_text = function.mensaje("Ingreso","Faltan datos","warning")
-                    messages.add_message(request, messages.SUCCESS,message_text)
+                    message_text = "Faltan datos"
+                    messages.add_message(request, messages.WARNING,message_text)
             return render(request, 'ingreso/index.html', {'form':IngresoForm()})
 
 def agenda_salir(request):
     if service.validar_session(request):
         del request.session['user_login']
-        message_text = function.mensaje("Cerrar Sesión","La sesión ha sido cerrada","success")
+        message_text = "La sesión ha sido cerrada"
         messages.add_message(request, messages.SUCCESS,message_text)
         return redirect('agenda_ingreso')
     else:
